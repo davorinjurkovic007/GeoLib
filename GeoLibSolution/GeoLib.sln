@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Data", "GeoLib.Data\GeoLib.Data.csproj", "{66A846B8-B9B8-497C-A9C8-2A1C21BAC447}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Core", "GeoLib.Core\GeoLib.Core.csproj", "{29CFDC54-79F5-49ED-96F2-680F5DA10A32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66A846B8-B9B8-497C-A9C8-2A1C21BAC447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A846B8-B9B8-497C-A9C8-2A1C21BAC447}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A846B8-B9B8-497C-A9C8-2A1C21BAC447}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A846B8-B9B8-497C-A9C8-2A1C21BAC447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4076310-C7DF-4F6D-A82A-157424B62CFA}
+	EndGlobalSection
+EndGlobal
