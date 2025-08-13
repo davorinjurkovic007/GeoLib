@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Data", "GeoLib.Data\GeoLib.Data.csproj", "{66A846B8-B9B8-497C-A9C8-2A1C21BAC447}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Core", "GeoLib.Core\GeoLib.Core.csproj", "{29CFDC54-79F5-49ED-96F2-680F5DA10A32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Contracts", "GeoLib.Contracts\GeoLib.Contracts.csproj", "{840328F9-97C7-4B96-8002-130C3220D637}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Services", "GeoLib.Services\GeoLib.Services.csproj", "{5462339B-15C5-4FB6-A2A0-958551951F17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Tests", "GeoLib.Tests\GeoLib.Tests.csproj", "{85232A6D-AD4A-459E-A4ED-13FA4B48A516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29CFDC54-79F5-49ED-96F2-680F5DA10A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{840328F9-97C7-4B96-8002-130C3220D637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{840328F9-97C7-4B96-8002-130C3220D637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{840328F9-97C7-4B96-8002-130C3220D637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{840328F9-97C7-4B96-8002-130C3220D637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5462339B-15C5-4FB6-A2A0-958551951F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5462339B-15C5-4FB6-A2A0-958551951F17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5462339B-15C5-4FB6-A2A0-958551951F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5462339B-15C5-4FB6-A2A0-958551951F17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85232A6D-AD4A-459E-A4ED-13FA4B48A516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85232A6D-AD4A-459E-A4ED-13FA4B48A516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85232A6D-AD4A-459E-A4ED-13FA4B48A516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85232A6D-AD4A-459E-A4ED-13FA4B48A516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
