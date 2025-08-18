@@ -1,15 +1,16 @@
 ﻿using GeoLib.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using System.ServiceModel.Channels;
 
 namespace GeoLib.Proxies
 {
     public class GeoClient : ClientBase<IGeoService>, IGeoService
     {
+        public GeoClient(string endpointName) : base(endpointName) { }
+
+        public GeoClient(Binding binding, EndpointAddress address) : base(binding, address) { }
+
         public IEnumerable<string> GetStates(bool primaryOnly)
         {
             return Channel.GetStates(primaryOnly);
