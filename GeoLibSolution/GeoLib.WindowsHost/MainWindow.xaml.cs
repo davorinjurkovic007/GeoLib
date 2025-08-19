@@ -40,10 +40,14 @@ namespace GeoLib.WindowsHost
             MainUI = this;
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId + " | Process " + Process.GetCurrentProcess().Id.ToString() + ")";
+
+            _synchronizationContext = SynchronizationContext.Current;
         }
 
         ServiceHost _HostGeoManager = null;
         ServiceHost _HostMessageManager = null;
+
+        SynchronizationContext _synchronizationContext = null;
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
@@ -77,8 +81,45 @@ namespace GeoLib.WindowsHost
         {
             int threadId = Thread.CurrentThread.ManagedThreadId;
 
-            lblMessage.Content = message + Environment.NewLine + " (shown on thread " + threadId.ToString() +
-                " | Process " + Process.GetCurrentProcess().Id.ToString() + ")";
+            SendOrPostCallback callback = new SendOrPostCallback(arg =>
+            {
+                lblMessage.Content = message + Environment.NewLine + 
+                    " (marhalled from thread " + threadId.ToString() + " ti thread " +
+                    Thread.CurrentThread.ManagedThreadId.ToString() + Environment.NewLine +
+                    " | Process " + Process.GetCurrentProcess().Id.ToString() + ")";
+            });
+
+            // NOTE: Second argument, null, is send/get passsed directly to the "arg" and can be used with in this code
+            // arg -> object which we can use. 
+            _synchronizationContext.Send(callback, null);
+        }
+
+        /// <summary>
+        /// This Thread is neede, with code in the ShowMessage and code on the MessageManager =>
+        /// [ServiceBehavior(UseSynchronizationContext = false)], for the purpose that we send message from
+        /// woeking thread to the UI, without any problem or stopping UI.
+        /// This is how it should it be done. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnInProc_Click(object sender, RoutedEventArgs e)
+        {
+            Thread thread = new Thread(() => 
+            { 
+                // There's that little bug the end point name so we have to give it a blank name
+                // if we're not addressing an end point by name.
+                ChannelFactory<IMessageService> factory = new ChannelFactory<IMessageService>("");
+
+                IMessageService proxy = factory.CreateChannel();
+
+                proxy.ShowMessage(DateTime.Now.ToLongTimeString() + " from in-process call.");
+
+                factory.Close();
+            });
+
+            // The only reason I make it a background thread is because it's a low priority process.
+            thread.IsBackground = true;
+            thread.Start();
         }
     }
 }
