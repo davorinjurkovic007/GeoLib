@@ -29,17 +29,21 @@ namespace GeoLib.Client
         public MainWindow()
         {
             InitializeComponent();
+            _Proyx = new GeoClient();
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId +
                 " | Process " + Process.GetCurrentProcess().Id.ToString();
         }
+
+        GeoClient _Proyx = null;
 
         private void btnGetInfo_Click(object sender, RoutedEventArgs e)
         {
             if (txtZipCode.Text != "")
             {
                 //GeoClient proxy = new GeoClient("httpEP") ;
-                GeoClient proxy = new GeoClient("webEP") ;
+                //GeoClient proxy = new GeoClient("webEP") ;
+                GeoClient proxy = new GeoClient("tcpEP") ;
 
                 ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
                 if (data != null)
@@ -56,10 +60,12 @@ namespace GeoLib.Client
         {
             if (txtState.Text != null)
             {
-                EndpointAddress address = new EndpointAddress("net.tcp://localhost:8009/GeoService");
-                System.ServiceModel.Channels.Binding binding = new NetTcpBinding();
+                //EndpointAddress address = new EndpointAddress("net.tcp://localhost:8009/GeoService");
+                //System.ServiceModel.Channels.Binding binding = new NetTcpBinding();
 
-                GeoClient proxy = new GeoClient(binding, address);
+                //GeoClient proxy = new GeoClient(binding, address);
+
+                GeoClient proxy = new GeoClient("tcpEP");
 
                 IEnumerable<ZipCodeData> data = proxy.GetZips(txtState.Text);
                 if (data != null)

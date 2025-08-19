@@ -3,9 +3,12 @@ using GeoLib.Data.Entities;
 using GeoLib.Data.Repositories;
 using GeoLib.Data.Repository_Interfaces;
 using System.Collections.Generic;
+using System.ServiceModel;
+using System.Threading;
 
 namespace GeoLib.Services
 {
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class GeoManager : IGeoService
     {
         public GeoManager()
@@ -51,6 +54,8 @@ namespace GeoLib.Services
 
         public ZipCodeData GetZipInfo(string zip)
         {
+            //Thread.Sleep(10000);
+
             ZipCodeData zipCodeData = null;
 
             IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
