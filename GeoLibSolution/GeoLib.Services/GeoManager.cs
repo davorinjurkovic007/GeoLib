@@ -2,13 +2,14 @@
 using GeoLib.Data.Entities;
 using GeoLib.Data.Repositories;
 using GeoLib.Data.Repository_Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Threading;
 
 namespace GeoLib.Services
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
     public class GeoManager : IGeoService
     {
         public GeoManager()
@@ -33,6 +34,8 @@ namespace GeoLib.Services
 
         IZipCodeRepository _ZipCodeRepository = null;
         IStateRepository _StateRepository = null;
+
+        int _Counter = 0;
 
         public IEnumerable<string> GetStates(bool primaryOnly)
         {
@@ -70,6 +73,9 @@ namespace GeoLib.Services
                     ZipCode = zipCodeEntity.Zip
                 };
             }
+
+            _Counter++;
+            Console.WriteLine("Counter = {0}", _Counter.ToString());
 
             return zipCodeData;
         }

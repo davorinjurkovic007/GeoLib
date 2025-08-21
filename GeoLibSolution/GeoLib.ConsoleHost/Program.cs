@@ -61,14 +61,17 @@ namespace GeoLib.ConsoleHost
             //else
             //    behavior.IncludeExceptionDetailInFaults = true;
 
-
-
             hostGeoManager.Open();
+
+            ServiceHost hostStatefulGeoManager = new ServiceHost(typeof(StatefulGeoManager));
+            hostStatefulGeoManager.Open();
+
 
             Console.WriteLine("Services started. Press [Enter] to exit.");
             Console.ReadLine();
 
             hostGeoManager.Close();
+            hostStatefulGeoManager.Close();
         }
     }
 }

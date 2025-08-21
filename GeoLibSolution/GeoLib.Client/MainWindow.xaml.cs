@@ -29,13 +29,15 @@ namespace GeoLib.Client
         public MainWindow()
         {
             InitializeComponent();
-            _Proyx = new GeoClient();
+            //_Proyx = new GeoClient();
+            _Proxy = new StatefulGeoClient();
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId +
                 " | Process " + Process.GetCurrentProcess().Id.ToString();
         }
 
-        GeoClient _Proyx = null;
+        //GeoClient _Proyx = null;
+        StatefulGeoClient _Proxy = null;
 
         private void btnGetInfo_Click(object sender, RoutedEventArgs e)
         {
@@ -55,9 +57,22 @@ namespace GeoLib.Client
 
                 //proxy.Close();
 
-                // Called by the service generated code
-                ServiceReference1.GeoServiceClient proxy = new ServiceReference1.GeoServiceClient();
-                var data = proxy.GetZipInfo(txtZipCode.Text);
+                //// Called by the service generated code
+                //ServiceReference1.GeoServiceClient proxy = new ServiceReference1.GeoServiceClient();
+                //var data = proxy.GetZipInfo(txtZipCode.Text);
+                //if (data != null)
+                //{
+                //    lblCity.Content = data.City;
+                //    lblState.Content = data.State;
+                //}
+
+                //proxy.Close();
+
+                GeoClient proxy = new GeoClient();
+
+                //ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
+                //ZipCodeData data = _Proyx.GetZipInfo(txtZipCode.Text);
+                ZipCodeData data = _Proxy.GetZipInfo();
                 if (data != null)
                 {
                     lblCity.Content = data.City;
@@ -108,6 +123,29 @@ namespace GeoLib.Client
             proxy.ShowMsg(txtMessage.Text);
 
             factory.Close();
+        }
+
+        private void btnGetInRange_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtZipCode.Text != "" && txtRange.Text != "")
+            {
+                //GeoClient proxy = new GeoClient();
+
+                //IEnumerable<ZipCodeData> data = proxy.GetZips(txtZipCode.Text, int.Parse(txtRange.Text));
+                IEnumerable<ZipCodeData> data = _Proxy.GetZips(int.Parse(txtRange.Text));
+                if (data != null)
+                    lstZips.ItemsSource = data;
+
+                //proxy.Close();
+            }
+        }
+
+        private void btnPush_Click(object sender, RoutedEventArgs e)
+        {
+            if(txtZipCode.Text != "")
+            {
+                _Proxy.PushZip(txtZipCode.Text);
+            }
         }
     }
 }
