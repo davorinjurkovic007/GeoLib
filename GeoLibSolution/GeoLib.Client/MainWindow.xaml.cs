@@ -43,9 +43,21 @@ namespace GeoLib.Client
             {
                 //GeoClient proxy = new GeoClient("httpEP") ;
                 //GeoClient proxy = new GeoClient("webEP") ;
-                GeoClient proxy = new GeoClient("tcpEP") ;
+                
+                //GeoClient proxy = new GeoClient("tcpEP") ;
 
-                ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
+                //ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
+                //if (data != null)
+                //{
+                //    lblCity.Content = data.City;
+                //    lblState.Content = data.State;
+                //}
+
+                //proxy.Close();
+
+                // Called by the service generated code
+                ServiceReference1.GeoServiceClient proxy = new ServiceReference1.GeoServiceClient();
+                var data = proxy.GetZipInfo(txtZipCode.Text);
                 if (data != null)
                 {
                     lblCity.Content = data.City;
