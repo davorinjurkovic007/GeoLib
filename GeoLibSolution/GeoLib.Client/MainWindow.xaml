@@ -28,5 +28,7 @@
         <TextBox x:Name="txtMessage" HorizontalAlignment="Left" Height="32" Margin="65,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="359" FontSize="18"/>
         <Button Content="Make Call" Height="39" HorizontalAlignment="Left" Margin="311,422,0,0" x:Name="btnMakeCall" VerticalAlignment="Top" Width="100" Click="btnMakeCall_Click" FontSize="20" />
         <Button Content="Push" Height="39" HorizontalAlignment="Left" Margin="324,43,0,0" x:Name="btnPush" VerticalAlignment="Top" Width="100" Click="btnPush_Click" FontSize="20" />
+        <Button Content="Update Batch" HorizontalAlignment="Left" Margin="765,211,0,0" x:Name="btnUpdateBatch" VerticalAlignment="Top" Width="126" Height="39" FontSize="20" Click="btnUpdateBatch_Click"/>
+        <Button Content="Put Back" HorizontalAlignment="Left" Margin="766,325,0,0" x:Name="btnPutBack" VerticalAlignment="Top" Width="125" Height="35" FontSize="20" Click="btnPutBack_Click"/>
     </Grid>
 </Window>

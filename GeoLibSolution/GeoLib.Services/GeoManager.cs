@@ -145,5 +145,44 @@ namespace GeoLib.Services
 
             return zipCodeData;
         }
+
+        public void UpdateZipCity(string zip, string city) 
+        {
+            IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
+
+            ZipCode zipEntitiy = zipCodeRepository.GetByZip(zip);
+            if (zipEntitiy != null) 
+            {
+                zipEntitiy.City = city;
+                zipCodeRepository.Update(zipEntitiy);
+            }
+        }
+
+        public void UpdateZipCity(IEnumerable<ZipCityData> zipCityData)
+        {
+            IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
+
+            Dictionary<string, string> cityBatch = new Dictionary<string, string>();
+
+            foreach (ZipCityData zipCityItem in zipCityData)
+            {
+                cityBatch.Add(zipCityItem.ZipCode, zipCityItem.City);
+            }
+
+            zipCodeRepository.UpdateCityBatch(cityBatch);
+
+
+            /// This is just for example.It is ineficient
+            //int counter = 0;
+            //foreach (ZipCityData zipCityItem in zipCityData)
+            //{
+            //    counter++;
+
+            //    ZipCode zipCodeEntity = zipCodeRepository.GetByZip(zipCityItem.ZipCode);
+            //    zipCodeEntity.City = zipCityItem.City;
+            //    ZipCode updateItem = zipCodeRepository.Update(zipCodeEntity);
+
+            //}
+        }
     }
 }
