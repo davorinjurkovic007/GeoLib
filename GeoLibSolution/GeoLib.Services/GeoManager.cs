@@ -4,6 +4,7 @@ using GeoLib.Data.Repositories;
 using GeoLib.Data.Repository_Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.ServiceModel;
 using System.Threading;
 
@@ -73,8 +74,26 @@ namespace GeoLib.Services
                     ZipCode = zipCodeEntity.Zip
                 };
             }
+            else
+            {
+                //throw new ApplicationException(string.Format("Zip code {0} not found.", zip));
 
-            _Counter++;
+                //throw new FaultException(string.Format("Zip code {0} not found.", zip));
+
+                //ApplicationException ex = new ApplicationException(string.Format("Zip code {0} not found.", zip));
+                //throw new FaultException<ApplicationException>(ex, "Just another message");
+
+                NotFoundData data = new NotFoundData()
+                {
+                    Message = string.Format("Zip code {0} not found.", zip),
+                    When = DateTime.UtcNow.ToString(),
+                    User = "Majka božja"
+                };
+
+                throw new FaultException<NotFoundData>(data, "Just another message.");
+            }
+
+                _Counter++;
             Console.WriteLine("Counter = {0}", _Counter.ToString());
 
             return zipCodeData;

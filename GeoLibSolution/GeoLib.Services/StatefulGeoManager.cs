@@ -8,7 +8,8 @@ using System.ServiceModel;
 
 namespace GeoLib.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession,
+        IncludeExceptionDetailInFaults = true)]
     public class StatefulGeoManager : IStatefulGeoService
     {
         ZipCode _ZipCodeEntity; 
@@ -34,7 +35,9 @@ namespace GeoLib.Services
                 };
             }
             else
-                throw new ApplicationException("Uh oh");
+            {
+                throw new ApplicationException(string.Format("Zip code {0} not found.", zipCodeData));
+            }
 
             return zipCodeData;
         }

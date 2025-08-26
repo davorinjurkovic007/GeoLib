@@ -72,14 +72,56 @@ namespace GeoLib.Client
 
                 //ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
                 //ZipCodeData data = _Proyx.GetZipInfo(txtZipCode.Text);
-                ZipCodeData data = _Proxy.GetZipInfo();
-                if (data != null)
-                {
-                    lblCity.Content = data.City;
-                    lblState.Content = data.State;
-                }
 
-                proxy.Close();
+                try
+                {
+                    //ZipCodeData data = _Proxy.GetZipInfo();
+                    ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
+                    if (data != null)
+                    {
+                        lblCity.Content = data.City;
+                        lblState.Content = data.State;
+                    }
+
+                    proxy.Close();
+                }
+                catch (FaultException<ExceptionDetail> ex)
+                {
+                    MessageBox.Show("Exception 1 thrown by service.\n\rException type: " +
+                        ex.GetType().Name + "\n\r" +
+                        "Message: " + ex.Message + "\n\r" +
+                        "Proxy state: " + proxy.State.ToString());
+                }
+                catch (FaultException<ApplicationException> ex)
+                {
+                    MessageBox.Show("FaultException<ApplicationException> thrown by service.\n\rException type: " +
+                        ex.GetType().Name + "\n\r" +
+                        "Reason: " + ex.Message + "\n\r" +
+                        "Message: " + ex.Detail.Message + "\n\r" +
+                        "Proxy state: " + proxy.State.ToString());
+                }
+                catch(FaultException<NotFoundData> ex)
+                {
+                    MessageBox.Show("FaultException<NotFoundData> thrown by service.\n\rException type: " +
+                        ex.GetType().Name + "\n\r" +
+                        "Reason: " + ex.Message + "\n\r" +
+                        "Message: " + ex.Detail.Message + "\n\r" +
+                        "Proxy state: " + proxy.State.ToString());
+                }
+                catch (FaultException ex)
+                {
+                    MessageBox.Show("FaultException thrown by service.\n\rException type: " +
+                        ex.GetType().Name + "\n\r" +
+                        "Message: " + ex.Message + "\n\r" +
+                        "Proxy state: " + proxy.State.ToString());
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show("Exception thrown by service.\n\rException type: " +
+                        ex.GetType().Name + "\n\r" +
+                        "Message: " + ex.Message + "\n\r" +
+                        "Proxy state: " + proxy.State.ToString());
+                }
             }
         }
 
@@ -92,7 +134,9 @@ namespace GeoLib.Client
 
                 //GeoClient proxy = new GeoClient(binding, address);
 
-                GeoClient proxy = new GeoClient("tcpEP");
+                //GeoClient proxy = new GeoClient("tcpEP");
+                GeoClient proxy = new GeoClient();
+
 
                 IEnumerable<ZipCodeData> data = proxy.GetZips(txtState.Text);
                 if (data != null)

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -8,6 +9,8 @@ namespace GeoLib.Contracts
     public interface IGeoService
     {
         [OperationContract]
+        [FaultContract(typeof(ApplicationException))]
+        [FaultContract(typeof(NotFoundData))]
         ZipCodeData GetZipInfo(string zip);
 
         [OperationContract]
