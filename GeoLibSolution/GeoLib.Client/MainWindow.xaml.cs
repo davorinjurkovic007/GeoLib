@@ -244,7 +244,7 @@ namespace GeoLib.Client
             _SyncContext.Send(updateUI, null);
         }
 
-        private async void btnPutBack_Click(object sender, RoutedEventArgs e)
+        private void btnPutBack_Click(object sender, RoutedEventArgs e)
         {
             List<ZipCityData> cityZipList = new List<ZipCityData>()
             {
@@ -256,24 +256,35 @@ namespace GeoLib.Client
 
             lstUpdates.Items.Clear();
 
-            await Task.Run(() =>
+            //await Task.Run(() =>
+            //{
+            //    try
+            //    {
+            //        //GeoClient proxy = new GeoClient(new InstanceContext(this));
+            //        DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
+
+            //        proxy.UpdateZipCity(cityZipList);
+
+            //        proxy.Close();
+
+            //        MessageBox.Show("Updated.");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error" + ex.Message);
+            //    }
+            //});
+
+            DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
+
+            Task<int> task = proxy.UpdateZipCityAsync(cityZipList);
+
+            task.ContinueWith(result =>
             {
-                try
-                {
-                    //GeoClient proxy = new GeoClient(new InstanceContext(this));
-                    DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
-
-                    proxy.UpdateZipCity(cityZipList);
-
-                    proxy.Close();
-
-                    MessageBox.Show("Updated.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error" + ex.Message);
-                }
+                MessageBox.Show(string.Format("Update {0} items.", result.Result));
             });
+
+            MessageBox.Show("Call made");
         }
 
         private void btnOneWay_Click(object sender, RoutedEventArgs e)
