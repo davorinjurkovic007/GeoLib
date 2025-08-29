@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace GeoLib.Client
@@ -187,7 +188,7 @@ namespace GeoLib.Client
             }
         }
 
-        private void btnUpdateBatch_Click(object sender, RoutedEventArgs e)
+        private async void btnUpdateBatch_Click(object sender, RoutedEventArgs e)
         {
             List<ZipCityData> cityZipList = new List<ZipCityData>()
             {
@@ -199,11 +200,10 @@ namespace GeoLib.Client
 
             lstUpdates.Items.Clear();
 
-            Thread thread = new Thread(() =>
+            await Task.Run(() =>
             {
                 try
                 {
-
                     GeoClient proxy = new GeoClient(new InstanceContext(this));
 
                     proxy.UpdateZipCity(cityZipList);
@@ -217,8 +217,6 @@ namespace GeoLib.Client
                     MessageBox.Show("Error" + ex.Message);
                 }
             });
-
-            thread.Start();
         }
 
         public void ZipUpdated(ZipCityData zipCityData)
@@ -233,7 +231,7 @@ namespace GeoLib.Client
             _SyncContext.Send(updateUI, null);
         }
 
-        private void btnPutBack_Click(object sender, RoutedEventArgs e)
+        private async void btnPutBack_Click(object sender, RoutedEventArgs e)
         {
             List<ZipCityData> cityZipList = new List<ZipCityData>()
             {
@@ -245,11 +243,10 @@ namespace GeoLib.Client
 
             lstUpdates.Items.Clear();
 
-            Thread thread = new Thread(() =>
+            await Task.Run(() =>
             {
                 try
                 {
-
                     GeoClient proxy = new GeoClient(new InstanceContext(this));
 
                     proxy.UpdateZipCity(cityZipList);
@@ -263,8 +260,6 @@ namespace GeoLib.Client
                     MessageBox.Show("Error" + ex.Message);
                 }
             });
-
-            thread.Start();
         }
 
         private void btnOneWay_Click(object sender, RoutedEventArgs e)
