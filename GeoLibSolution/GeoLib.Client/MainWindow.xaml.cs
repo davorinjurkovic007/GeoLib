@@ -41,7 +41,7 @@ namespace GeoLib.Client
             {
                 //GeoClient proxy = new GeoClient("httpEP") ;
                 //GeoClient proxy = new GeoClient("webEP") ;
-                
+
                 //GeoClient proxy = new GeoClient("tcpEP") ;
 
                 //ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
@@ -64,7 +64,8 @@ namespace GeoLib.Client
 
                 //proxy.Close();
 
-                GeoClient proxy = new GeoClient(new InstanceContext(this));
+                //GeoClient proxy = new GeoClient(new InstanceContext(this));
+                DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
 
                 //ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
                 //ZipCodeData data = _Proyx.GetZipInfo(txtZipCode.Text);
@@ -131,8 +132,8 @@ namespace GeoLib.Client
                 //GeoClient proxy = new GeoClient(binding, address);
 
                 //GeoClient proxy = new GeoClient("tcpEP");
-                GeoClient proxy = new GeoClient(new InstanceContext(this));
-
+                //GeoClient proxy = new GeoClient(new InstanceContext(this));
+                DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
 
                 IEnumerable<ZipCodeData> data = proxy.GetZips(txtState.Text);
                 if (data != null)
@@ -188,7 +189,7 @@ namespace GeoLib.Client
             }
         }
 
-        private async void btnUpdateBatch_Click(object sender, RoutedEventArgs e)
+        private void btnUpdateBatch_Click(object sender, RoutedEventArgs e)
         {
             List<ZipCityData> cityZipList = new List<ZipCityData>()
             {
@@ -200,23 +201,34 @@ namespace GeoLib.Client
 
             lstUpdates.Items.Clear();
 
-            await Task.Run(() =>
+            //await Task.Run(() =>
+            //{
+            //    try
+            //    {
+            //        GeoClient proxy = new GeoClient(new InstanceContext(this));
+
+            //        proxy.UpdateZipCity(cityZipList);
+
+            //        proxy.Close();
+
+            //        MessageBox.Show("Updated.");
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error" + ex.Message);
+            //    }
+            //});
+
+            DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
+
+            Task<int> task = proxy.UpdateZipCityAsync(cityZipList);
+
+            task.ContinueWith(result =>
             {
-                try
-                {
-                    GeoClient proxy = new GeoClient(new InstanceContext(this));
-
-                    proxy.UpdateZipCity(cityZipList);
-
-                    proxy.Close();
-
-                    MessageBox.Show("Updated.");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error" + ex.Message);
-                }
+                MessageBox.Show(string.Format("Update {0} items.", result.Result));
             });
+
+            MessageBox.Show("Call made");
         }
 
         //[OperationBehavior(TransactionScopeRequired = true)]
@@ -248,7 +260,8 @@ namespace GeoLib.Client
             {
                 try
                 {
-                    GeoClient proxy = new GeoClient(new InstanceContext(this));
+                    //GeoClient proxy = new GeoClient(new InstanceContext(this));
+                    DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
 
                     proxy.UpdateZipCity(cityZipList);
 
@@ -265,15 +278,16 @@ namespace GeoLib.Client
 
         private void btnOneWay_Click(object sender, RoutedEventArgs e)
         {
-            GeoClient proxy = new GeoClient(new InstanceContext(this));
+            //GeoClient proxy = new GeoClient(new InstanceContext(this));
+            //DuplexGeoClient proxy = new DuplexGeoClient(new InstanceContext(this));
 
-            proxy.OneWayExample();
+            //proxy.OneWayExample();
 
-            MessageBox.Show("Oneway Example called. Back at client.");
+            //MessageBox.Show("Oneway Example called. Back at client.");
 
-            proxy.Close();
+            //proxy.Close();
 
-            MessageBox.Show("Proxy is now close.");
+            //MessageBox.Show("Proxy is now close.");
         }
     }
 }

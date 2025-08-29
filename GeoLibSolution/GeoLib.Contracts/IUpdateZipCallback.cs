@@ -5,7 +5,7 @@ namespace GeoLib.Contracts
     [ServiceContract]
     public interface IUpdateZipCallback
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract(IsOneWay = false)]
         //[TransactionFlow(TransactionFlowOption.Allowed)]
         void ZipUpdated(ZipCityData zipCityData);
     }

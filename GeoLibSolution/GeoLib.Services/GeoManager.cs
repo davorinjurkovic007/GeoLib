@@ -163,7 +163,7 @@ namespace GeoLib.Services
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
-        public void UpdateZipCity(IEnumerable<ZipCityData> zipCityData)
+        public int UpdateZipCity(IEnumerable<ZipCityData> zipCityData)
         {
             IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
 
@@ -182,8 +182,11 @@ namespace GeoLib.Services
                 foreach (ZipCityData zipCityItem in zipCityData)
                 {
                     callback.ZipUpdated(zipCityItem);
+                 
                 }
             }
+
+            return zipCityData.Count();
 
 
             /// This is just for example.It is ineficient

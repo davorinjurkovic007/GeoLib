@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuplexGeoClient.cs" />
     <Compile Include="GeoClient.cs" />
+    <Compile Include="IGeoService.cs" />
     <Compile Include="IMessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatefulGeoClient.cs" />
