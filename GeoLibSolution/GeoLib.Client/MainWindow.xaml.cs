@@ -219,6 +219,7 @@ namespace GeoLib.Client
             });
         }
 
+        //[OperationBehavior(TransactionScopeRequired = true)]
         public void ZipUpdated(ZipCityData zipCityData)
         {
             //MessageBox.Show(string.Format("Update zipcode {0} with city {1}.", zipCityData.ZipCode, zipCityData.City));
