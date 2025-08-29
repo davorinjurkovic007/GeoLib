@@ -4,27 +4,18 @@ using GeoLib.Proxies;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GeoLib.Client
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    /// 
+    [CallbackBehavior(UseSynchronizationContext = false)]
+    public partial class MainWindow : Window, IUpdateZipCallback
     {
         public MainWindow()
         {
@@ -68,7 +59,7 @@ namespace GeoLib.Client
 
                 //proxy.Close();
 
-                GeoClient proxy = new GeoClient();
+                GeoClient proxy = new GeoClient(new InstanceContext(this));
 
                 //ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
                 //ZipCodeData data = _Proyx.GetZipInfo(txtZipCode.Text);
@@ -135,7 +126,7 @@ namespace GeoLib.Client
                 //GeoClient proxy = new GeoClient(binding, address);
 
                 //GeoClient proxy = new GeoClient("tcpEP");
-                GeoClient proxy = new GeoClient();
+                GeoClient proxy = new GeoClient(new InstanceContext(this));
 
 
                 IEnumerable<ZipCodeData> data = proxy.GetZips(txtState.Text);
@@ -197,13 +188,15 @@ namespace GeoLib.Client
             List<ZipCityData> cityZipList = new List<ZipCityData>()
             {
                 new ZipCityData() { ZipCode = "07035", City = "Bedrock" },
-                new ZipCityData() { ZipCode = "33033", City = "End of the World" }
+                new ZipCityData() { ZipCode = "33033", City = "End of the World" },
+                new ZipCityData() { ZipCode = "90210", City = "Alderan" },
+                new ZipCityData() { ZipCode = "07094", City = "Storybrooke" }
             };
 
             try
             {
 
-                GeoClient proxy = new GeoClient();
+                GeoClient proxy = new GeoClient(new InstanceContext(this));
 
                 proxy.UpdateZipCity(cityZipList);
 
@@ -213,8 +206,13 @@ namespace GeoLib.Client
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Error" + ex.Message);
             }
+        }
+
+        public void ZipUpdated(ZipCityData zipCityData)
+        {
+            MessageBox.Show(string.Format("Update zipcode {0} with city {1}.", zipCityData.ZipCode, zipCityData.City));
         }
 
         private void btnPutBack_Click(object sender, RoutedEventArgs e)
@@ -222,12 +220,14 @@ namespace GeoLib.Client
             List<ZipCityData> cityZipList = new List<ZipCityData>()
             {
                 new ZipCityData() { ZipCode = "07035", City = "Lincoln Park" },
-                new ZipCityData() { ZipCode = "33033", City = "Homestead" }
+                new ZipCityData() { ZipCode = "33033", City = "Homestead" },
+                new ZipCityData() { ZipCode = "90210", City = "Beverly Hills" },
+                new ZipCityData() { ZipCode = "07094", City = "Secaucus" }
             };
 
             try
             {
-                GeoClient proxy = new GeoClient();
+                GeoClient proxy = new GeoClient(new InstanceContext(this));
 
                 proxy.UpdateZipCity(cityZipList);
 
@@ -243,7 +243,7 @@ namespace GeoLib.Client
 
         private void btnOneWay_Click(object sender, RoutedEventArgs e)
         {
-            GeoClient proxy = new GeoClient();
+            GeoClient proxy = new GeoClient(new InstanceContext(this));
 
             proxy.OneWayExample();
 

@@ -5,6 +5,7 @@ using GeoLib.Data.Repository_Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.ServiceModel;
 using System.Threading;
 using System.Windows;
@@ -12,8 +13,8 @@ using System.Windows;
 namespace GeoLib.Services
 {
     // this is for previous lection, number 11
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
-    //[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, ReleaseServiceInstanceOnTransactionComplete = false)]
+    //[ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, ReleaseServiceInstanceOnTransactionComplete = false)]
     public class GeoManager : IGeoService
     {
         public GeoManager()
@@ -161,6 +162,7 @@ namespace GeoLib.Services
             }
         }
 
+        [OperationBehavior(TransactionScopeRequired = true)]
         public void UpdateZipCity(IEnumerable<ZipCityData> zipCityData)
         {
             IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
@@ -173,6 +175,15 @@ namespace GeoLib.Services
             }
 
             zipCodeRepository.UpdateCityBatch(cityBatch);
+
+            IUpdateZipCallback callback = OperationContext.Current.GetCallbackChannel<IUpdateZipCallback>();
+            if (callback != null)
+            {
+                foreach (ZipCityData zipCityItem in zipCityData)
+                {
+                    callback.ZipUpdated(zipCityItem);
+                }
+            }
 
 
             /// This is just for example.It is ineficient
