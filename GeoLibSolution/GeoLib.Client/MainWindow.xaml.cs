@@ -25,10 +25,14 @@ namespace GeoLib.Client
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId +
                 " | Process " + Process.GetCurrentProcess().Id.ToString();
+
+            _SyncContext = SynchronizationContext.Current;
         }
 
         //GeoClient _Proyx = null;
         StatefulGeoClient _Proxy = null;
+
+        SynchronizationContext _SyncContext = null;
 
         private void btnGetInfo_Click(object sender, RoutedEventArgs e)
         {
@@ -193,26 +197,40 @@ namespace GeoLib.Client
                 new ZipCityData() { ZipCode = "07094", City = "Storybrooke" }
             };
 
-            try
+            lstUpdates.Items.Clear();
+
+            Thread thread = new Thread(() =>
             {
+                try
+                {
 
-                GeoClient proxy = new GeoClient(new InstanceContext(this));
+                    GeoClient proxy = new GeoClient(new InstanceContext(this));
 
-                proxy.UpdateZipCity(cityZipList);
+                    proxy.UpdateZipCity(cityZipList);
 
-                proxy.Close();
+                    proxy.Close();
 
-                MessageBox.Show("Updated.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error" + ex.Message);
-            }
+                    MessageBox.Show("Updated.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error" + ex.Message);
+                }
+            });
+
+            thread.Start();
         }
 
         public void ZipUpdated(ZipCityData zipCityData)
         {
-            MessageBox.Show(string.Format("Update zipcode {0} with city {1}.", zipCityData.ZipCode, zipCityData.City));
+            //MessageBox.Show(string.Format("Update zipcode {0} with city {1}.", zipCityData.ZipCode, zipCityData.City));
+
+            SendOrPostCallback updateUI = new SendOrPostCallback(arg =>
+            {
+                lstUpdates.Items.Add(zipCityData);
+            });
+
+            _SyncContext.Send(updateUI, null);
         }
 
         private void btnPutBack_Click(object sender, RoutedEventArgs e)
@@ -225,20 +243,28 @@ namespace GeoLib.Client
                 new ZipCityData() { ZipCode = "07094", City = "Secaucus" }
             };
 
-            try
+            lstUpdates.Items.Clear();
+
+            Thread thread = new Thread(() =>
             {
-                GeoClient proxy = new GeoClient(new InstanceContext(this));
+                try
+                {
 
-                proxy.UpdateZipCity(cityZipList);
+                    GeoClient proxy = new GeoClient(new InstanceContext(this));
 
-                proxy.Close();
+                    proxy.UpdateZipCity(cityZipList);
 
-                MessageBox.Show("Updated.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error");
-            }
+                    proxy.Close();
+
+                    MessageBox.Show("Updated.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error" + ex.Message);
+                }
+            });
+
+            thread.Start();
         }
 
         private void btnOneWay_Click(object sender, RoutedEventArgs e)
