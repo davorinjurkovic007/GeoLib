@@ -240,5 +240,16 @@ namespace GeoLib.Client
                 MessageBox.Show("Error");
             }
         }
+
+        private void btnOneWay_Click(object sender, RoutedEventArgs e)
+        {
+            GeoClient proxy = new GeoClient();
+
+            proxy.OneWayExample();
+
+            MessageBox.Show("Oneway Example called. Back at client.");
+
+            proxy.Close();
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.Threading;
+using System.Windows;
 
 namespace GeoLib.Services
 {
@@ -184,5 +185,11 @@ namespace GeoLib.Services
 
             //}
         }
+
+        public void OneWayExample()
+        {
+            MessageBox.Show("Made it to the service");
+        }
+
     }
 }

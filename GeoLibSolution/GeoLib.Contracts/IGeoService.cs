@@ -28,5 +28,8 @@ namespace GeoLib.Contracts
         [OperationContract(Name = "UpdateZipCityBatch")]
         void UpdateZipCity(IEnumerable<ZipCityData> zipCityData);
 
+        [OperationContract(IsOneWay = true)]
+        void OneWayExample();
+
     }
 }

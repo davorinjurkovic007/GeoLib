@@ -45,5 +45,10 @@ namespace GeoLib.Proxies
             Channel.UpdateZipCity(zipCityData);
 
         }
+
+        public void OneWayExample()
+        {
+            Channel.OneWayExample();
+        }
     }
 }
