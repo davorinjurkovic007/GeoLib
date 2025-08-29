@@ -11,7 +11,9 @@ using System.Windows;
 
 namespace GeoLib.Services
 {
+    // this is for previous lection, number 11
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)]
+    //[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant, ReleaseServiceInstanceOnTransactionComplete = false)]
     public class GeoManager : IGeoService
     {
         public GeoManager()

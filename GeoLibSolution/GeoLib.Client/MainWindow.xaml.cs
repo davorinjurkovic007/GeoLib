@@ -250,6 +250,8 @@ namespace GeoLib.Client
             MessageBox.Show("Oneway Example called. Back at client.");
 
             proxy.Close();
+
+            MessageBox.Show("Proxy is now close.");
         }
     }
 }
