@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Data", "GeoLib.Data\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Contracts", "GeoLib.Contracts\GeoLib.Contracts.csproj", "{F4F7ED23-78E6-4B5F-A255-CB2604B16C6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLib.Services", "GeoLib.Services\GeoLib.Services.csproj", "{2988B976-1D6F-48AF-9ACE-D562A65EEFAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F4F7ED23-78E6-4B5F-A255-CB2604B16C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4F7ED23-78E6-4B5F-A255-CB2604B16C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4F7ED23-78E6-4B5F-A255-CB2604B16C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2988B976-1D6F-48AF-9ACE-D562A65EEFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2988B976-1D6F-48AF-9ACE-D562A65EEFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2988B976-1D6F-48AF-9ACE-D562A65EEFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2988B976-1D6F-48AF-9ACE-D562A65EEFAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using GeoLib.Core;
 
-namespace GeoLib.Data.Entities
+namespace GeoLib.Data
 {
     public class State : IIdentifiableEntity
     {
