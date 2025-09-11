@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +60,24 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeoLib.Contracts\GeoLib.Contracts.csproj">
+      <Project>{f4f7ed23-78e6-4b5f-a255-cb2604b16c6f}</Project>
+      <Name>GeoLib.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeoLib.Core\GeoLib.Core.csproj">
+      <Project>{899cdb56-daf7-4ba0-931d-627f3d6dad03}</Project>
+      <Name>GeoLib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeoLib.Data\GeoLib.Data.csproj">
+      <Project>{b820b75c-7a64-4f08-9895-06f2b47e6f12}</Project>
+      <Name>GeoLib.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeoLib.Services\GeoLib.Services.csproj">
+      <Project>{2988b976-1d6f-48af-9ace-d562a65eefad}</Project>
+      <Name>GeoLib.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
