@@ -2,6 +2,7 @@
 using GeoLib.Data;
 using GeoLib.Data.Repositories;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Threading;
@@ -127,6 +128,7 @@ namespace GeoLib.Services
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
+        [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
         public void UpdateZipCity(string zip, string city)
         {
             IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
@@ -140,6 +142,7 @@ namespace GeoLib.Services
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
+        [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
         public void UpdateZipCity(IEnumerable<ZipCityData> zipCityData)
         {
             string histIdentity = WindowsIdentity.GetCurrent().Name;

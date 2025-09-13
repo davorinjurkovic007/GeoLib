@@ -85,8 +85,9 @@ namespace GeoLib.Client
             {
                 GeoAdminClient proxy = new GeoAdminClient();
 
-                proxy.ClientCredentials.Windows.ClientCredential.UserName = "WcfUser";
-                proxy.ClientCredentials.Windows.ClientCredential.Password = "dotnet";
+                /// Napraviti novog korisnika na računalu, ne staviti ga da bude admin
+                //proxy.ClientCredentials.Windows.ClientCredential.UserName = "WcfUser";
+                //proxy.ClientCredentials.Windows.ClientCredential.Password = "dotnet";
 
                 proxy.UpdateZipCity(cityZipList);
 
